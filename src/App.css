@@ -270,6 +270,12 @@ header {
   text-align: left;
 }
 
+.table-action-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
 .section-icon-button {
   appearance: none;
   border: 0;
@@ -715,23 +721,29 @@ tr:hover td {
   }
 
   .leaderboard-table tr {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
   }
 
   .leaderboard-table td[data-label='Player'] {
-    flex: 1 1 auto;
+    display: block;
     min-width: 0;
     padding: 0;
   }
 
+  .leaderboard-table td[data-label='Player'] .player-name-button {
+    width: 100%;
+  }
+
   .leaderboard-table td[data-label='Power Score'],
-  .leaderboard-table td[data-label='BB'] {
-    flex: 0 0 auto;
-    min-width: 72px;
+  .leaderboard-table td[data-label='BB'],
+  .leaderboard-table td[data-label='GP'] {
+    display: inline-block;
+    min-width: 0;
     padding: 0;
-    text-align: right;
+    text-align: left;
+    vertical-align: top;
   }
 
   .leaderboard-table td[data-label='Player']::before {
@@ -739,11 +751,17 @@ tr:hover td {
   }
 
   .leaderboard-table td[data-label='Power Score']::before,
-  .leaderboard-table td[data-label='BB']::before {
+  .leaderboard-table td[data-label='BB']::before,
+  .leaderboard-table td[data-label='GP']::before {
     margin-bottom: 2px;
   }
 
-  .leaderboard-table td[data-label='GP'],
+  .leaderboard-table td[data-label='Power Score'],
+  .leaderboard-table td[data-label='BB'],
+  .leaderboard-table td[data-label='GP'] {
+    margin-right: 16px;
+  }
+
   .leaderboard-table td[data-label='Net'],
   .leaderboard-table td[data-label='Avg'],
   .leaderboard-table td[data-label='Win %'],

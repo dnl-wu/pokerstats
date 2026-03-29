@@ -21,9 +21,9 @@ export function PlayerNameCell({ name, onSelect, rank }) {
   )
 }
 
-export function LinkButton({ children, onClick }) {
+export function LinkButton({ children, onClick, ariaLabel }) {
   return (
-    <button type="button" className="link-button" onClick={onClick}>
+    <button type="button" className="link-button" onClick={onClick} aria-label={ariaLabel}>
       {children}
     </button>
   )

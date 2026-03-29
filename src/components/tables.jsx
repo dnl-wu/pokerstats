@@ -79,8 +79,17 @@ export function SessionsTable({ games, onOpenGame, onSelectPlayer, compact = fal
             <td data-label="Players">{game.players.length}</td>
             <td data-label="Total">{formatCurrency(game.totalBuyIn)}</td>
             <td data-label="Action">
-              <LinkButton onClick={() => onOpenGame(game.id)}>
-                {compact ? 'View' : 'View Session'}
+              <LinkButton onClick={() => onOpenGame(game.id)} ariaLabel={`Open ${game.gameName}`}>
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="table-action-icon">
+                  <path
+                    d="M7 17L17 7M9 7h8v8"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </LinkButton>
             </td>
           </tr>
