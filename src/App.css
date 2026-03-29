@@ -721,13 +721,13 @@ tr:hover td {
   }
 
   .leaderboard-table tr {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
   }
 
   .leaderboard-table td[data-label='Player'] {
-    flex: 1 1 auto;
+    display: block;
     min-width: 0;
     padding: 0;
   }
@@ -737,10 +737,10 @@ tr:hover td {
   }
 
   .leaderboard-table td[data-label='Power Score'] {
-    flex: 0 0 auto;
-    min-width: 72px;
+    display: block;
+    min-width: 0;
     padding: 0;
-    text-align: right;
+    text-align: left;
   }
 
   .leaderboard-table td[data-label='Player']::before {
