@@ -714,6 +714,43 @@ tr:hover td {
     margin-bottom: 6px;
   }
 
+  .leaderboard-table tr {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .leaderboard-table td[data-label='Player'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .leaderboard-table td[data-label='Power Score'],
+  .leaderboard-table td[data-label='BB'] {
+    flex: 0 0 auto;
+    min-width: 72px;
+    padding: 0;
+    text-align: right;
+  }
+
+  .leaderboard-table td[data-label='Player']::before {
+    display: none;
+  }
+
+  .leaderboard-table td[data-label='Power Score']::before,
+  .leaderboard-table td[data-label='BB']::before {
+    margin-bottom: 2px;
+  }
+
+  .leaderboard-table td[data-label='GP'],
+  .leaderboard-table td[data-label='Net'],
+  .leaderboard-table td[data-label='Avg'],
+  .leaderboard-table td[data-label='Win %'],
+  .leaderboard-table td[data-label='ROI'] {
+    display: none;
+  }
+
   .sessions-table td[data-label='Action'] {
     padding-top: 12px;
   }
