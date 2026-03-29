@@ -30,7 +30,7 @@ export function HomeView({
 }) {
   return (
     <div className="main-content">
-      <PageHeader title="League Standings" badge="S1 W26" />
+      <PageHeader title="League Standings" badge="S1 W26" badgeClassName="season-badge-red" />
       <SummaryCards topCashout={topCashout} topBbProfit={topBbProfit} />
 
       <div className="home-grid">
@@ -93,10 +93,10 @@ export function SessionsView({ games, onBack, onOpenGame, onSelectPlayer }) {
   )
 }
 
-export function GameView({ game, onBack, onSelectPlayer }) {
+export function GameView({ game, onBack, onSelectPlayer, backLabel = 'Back to Sessions' }) {
   return (
     <div className="main-content">
-      <LinkButton onClick={onBack}>Back to Sessions</LinkButton>
+      <LinkButton onClick={onBack}>{backLabel}</LinkButton>
       <PageHeader title={game.gameName} badge={game.date} />
       <div className="standings-card session-summary">
         <div><strong>Winner:</strong> {game.winner?.player ?? '—'}</div>
@@ -105,7 +105,7 @@ export function GameView({ game, onBack, onSelectPlayer }) {
         <div><strong>Total Buy In:</strong> {formatCurrency(game.totalBuyIn)}</div>
       </div>
       <StandingsCard>
-        <table>
+        <table className="responsive-table game-results-table">
           <thead>
             <tr>
               <th>Player</th>
@@ -118,13 +118,13 @@ export function GameView({ game, onBack, onSelectPlayer }) {
           <tbody>
             {game.players.map((player) => (
               <tr key={player.id}>
-                <td>
+                <td data-label="Player">
                   <PlayerNameCell name={player.player} onSelect={onSelectPlayer} />
                 </td>
-                <td>{formatCurrency(player.buyIn)}</td>
-                <td>{formatCurrency(player.cashOut)}</td>
-                <td className={playerResultClass(player.netProfit)}>{formatSignedCurrency(player.netProfit)}</td>
-                <td className={playerResultClass(player.profitBigBlind)}>{formatSignedNumber(player.profitBigBlind)}</td>
+                <td data-label="Buy In">{formatCurrency(player.buyIn)}</td>
+                <td data-label="Cash Out">{formatCurrency(player.cashOut)}</td>
+                <td data-label="Net" className={playerResultClass(player.netProfit)}>{formatSignedCurrency(player.netProfit)}</td>
+                <td data-label="Profit (BB)" className={playerResultClass(player.profitBigBlind)}>{formatSignedNumber(player.profitBigBlind)}</td>
               </tr>
             ))}
           </tbody>
@@ -134,7 +134,7 @@ export function GameView({ game, onBack, onSelectPlayer }) {
   )
 }
 
-export function PlayerView({ profile, onBack }) {
+export function PlayerView({ profile, onBack, onOpenGame }) {
   const { player, summary, sessions } = profile
   let streak = 0
 
@@ -193,7 +193,7 @@ export function PlayerView({ profile, onBack }) {
 
       <SectionHeader title="Session Log" />
       <StandingsCard>
-        <table>
+        <table className="responsive-table player-session-table">
           <thead>
             <tr>
               <th>Date</th>
@@ -209,13 +209,15 @@ export function PlayerView({ profile, onBack }) {
             {sessions.length ? (
               sessions.map((session) => (
                 <tr key={session.id}>
-                  <td>{session.date}</td>
-                  <td>{session.gameName}</td>
-                  <td>{session.placement}</td>
-                  <td>{formatCurrency(session.buyIn)}</td>
-                  <td>{formatCurrency(session.cashOut)}</td>
-                  <td className={playerResultClass(session.netProfit)}>{formatSignedCurrency(session.netProfit)}</td>
-                  <td className={playerResultClass(session.profitBigBlind)}>{formatSignedNumber(session.profitBigBlind)}</td>
+                  <td data-label="Date">{session.date}</td>
+                  <td data-label="Session">
+                    <LinkButton onClick={() => onOpenGame(session.gameId)}>{session.gameName}</LinkButton>
+                  </td>
+                  <td data-label="Place">{session.placement}</td>
+                  <td data-label="Buy In">{formatCurrency(session.buyIn)}</td>
+                  <td data-label="Cash Out">{formatCurrency(session.cashOut)}</td>
+                  <td data-label="Net" className={playerResultClass(session.netProfit)}>{formatSignedCurrency(session.netProfit)}</td>
+                  <td data-label="Profit (BB)" className={playerResultClass(session.profitBigBlind)}>{formatSignedNumber(session.profitBigBlind)}</td>
                 </tr>
               ))
             ) : (

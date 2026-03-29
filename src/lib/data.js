@@ -121,6 +121,7 @@ export function buildPlayerProfiles(games, leaderboard) {
       const existing = profiles.get(session.player) ?? { player: session.player, sessions: [] }
       existing.sessions.push({
         ...session,
+        gameId: game.id,
         placement: game.players.findIndex((player) => player.id === session.id) + 1,
       })
       profiles.set(session.player, existing)

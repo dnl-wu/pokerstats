@@ -59,11 +59,11 @@ export function SectionHeader({ title, actionLabel, onAction }) {
   )
 }
 
-export function PageHeader({ title, badge }) {
+export function PageHeader({ title, badge, badgeClassName = '' }) {
   return (
     <div className="page-header">
       <h1 className="page-title">{title}</h1>
-      {badge ? <div className="season-badge">{badge}</div> : null}
+      {badge ? <div className={`season-badge ${badgeClassName}`.trim()}>{badge}</div> : null}
     </div>
   )
 }

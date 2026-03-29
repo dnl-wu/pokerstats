@@ -15,6 +15,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 button {
@@ -35,6 +36,7 @@ button {
 .announcement-text {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   padding: 10px 24px;
   font-size: 13px;
@@ -65,6 +67,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 16px 24px;
 }
 
@@ -82,6 +85,8 @@ header {
   font-weight: 900;
   letter-spacing: -0.5px;
   text-transform: uppercase;
+  min-width: 0;
+  text-align: left;
 }
 
 .logo-image {
@@ -119,6 +124,12 @@ header {
   display: flex;
   gap: 32px;
   padding: 0 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sub-nav-container::-webkit-scrollbar {
+  display: none;
 }
 
 .sub-nav-link {
@@ -172,6 +183,10 @@ header {
   letter-spacing: 0.5px;
 }
 
+.season-badge-red {
+  background-color: #b91c1c;
+}
+
 .summary-card-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -199,6 +214,7 @@ header {
 .summary-stat-value {
   font-size: 22px;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .standings-card,
@@ -227,6 +243,8 @@ header {
   margin-bottom: 16px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 .section-title-row {
@@ -249,6 +267,7 @@ header {
   cursor: pointer;
   color: var(--text-main);
   font-weight: 700;
+  text-align: left;
 }
 
 .section-icon-button {
@@ -272,6 +291,7 @@ header {
 
 .table-responsive {
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 table {
@@ -303,6 +323,7 @@ td {
   font-weight: 600;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-muted);
+  vertical-align: middle;
 }
 
 tr:last-child td {
@@ -356,6 +377,7 @@ tr:hover td {
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .player-name-inline {
@@ -384,12 +406,15 @@ tr:hover td {
   padding: 0;
   cursor: pointer;
   color: var(--text-main);
+  max-width: 100%;
 }
 
 .player-name-text {
   font-weight: 800;
   font-size: 15px;
   color: var(--text-main);
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .rank-num {
@@ -457,6 +482,7 @@ tr:hover td {
   font-size: 2rem;
   font-weight: 800;
   letter-spacing: -1px;
+  overflow-wrap: anywhere;
 }
 
 .badge {
@@ -467,6 +493,7 @@ tr:hover td {
   border-radius: 999px;
   font-size: 12px;
   font-weight: 700;
+  max-width: 100%;
 }
 
 .stat-grid {
@@ -516,12 +543,50 @@ tr:hover td {
   .session-summary {
     grid-template-columns: 1fr;
   }
+
+  .nav-container,
+  .announcement-text,
+  .sub-nav-container,
+  .main-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 640px) {
+  .announcement-text {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .nav-container {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .logo {
+    font-size: 16px;
+    gap: 10px;
+  }
+
+  .logo-image {
+    width: 36px;
+    height: 36px;
+  }
+
   .sub-nav-container {
     gap: 18px;
-    overflow-x: auto;
+  }
+
+  .sub-nav-link {
+    padding: 14px 0;
+    font-size: 12px;
+    white-space: nowrap;
   }
 
   .main-content {
@@ -529,14 +594,148 @@ tr:hover td {
     padding: 0 16px;
   }
 
+  .page-header {
+    margin-bottom: 20px;
+  }
+
+  .page-title {
+    font-size: 22px;
+    letter-spacing: -0.6px;
+  }
+
+  .summary-stat-card,
+  .stat-box,
+  .player-directory,
+  .loading {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .summary-stat-card {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .summary-stat-value,
+  .stat-value {
+    font-size: 1.2rem;
+  }
+
   .player-hero {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+    margin-bottom: 24px;
   }
 
-  th,
-  td {
+  .player-info {
+    width: 100%;
+  }
+
+  .player-info h2 {
+    font-size: 1.75rem;
+  }
+
+  .profile-avatar.large {
+    width: 64px;
+    height: 64px;
+    font-size: 20px;
+  }
+
+  .stat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .session-summary {
+    gap: 12px;
     padding: 14px 16px;
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+  }
+
+  .responsive-table {
+    min-width: 100%;
+  }
+
+  .responsive-table thead {
+    display: none;
+  }
+
+  .responsive-table,
+  .responsive-table tbody,
+  .responsive-table tr,
+  .responsive-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-table tr {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .responsive-table tr:last-child {
+    border-bottom: none;
+  }
+
+  .responsive-table td {
+    border: 0;
+    padding: 8px 0;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .responsive-table td:first-child {
+    padding-top: 0;
+  }
+
+  .responsive-table td:last-child {
+    padding-bottom: 0;
+  }
+
+  .responsive-table td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .leaderboard-table td[data-label='Player']::before,
+  .game-results-table td[data-label='Player']::before,
+  .sessions-table td[data-label='Winner']::before {
+    margin-bottom: 6px;
+  }
+
+  .sessions-table td[data-label='Action'] {
+    padding-top: 12px;
+  }
+
+  .compact-recaps-table,
+  .compact-recaps-table td,
+  .compact-recaps-table th {
+    table-layout: auto;
+  }
+
+  .compact-recaps-table td:nth-child(2) .player-name-inline,
+  .compact-recaps-table td:nth-child(2) .player-name-button {
+    min-width: 0;
+  }
+
+  .player-name-button,
+  .player-name-inline {
+    gap: 10px;
+    width: 100%;
+  }
+
+  .player-name-text {
+    font-size: 14px;
   }
 }

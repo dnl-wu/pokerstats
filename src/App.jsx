@@ -140,11 +140,24 @@ function App() {
     }
 
     if (view.type === 'game' && activeGame) {
-      return <GameView game={activeGame} onBack={() => setView({ type: 'sessions' })} onSelectPlayer={openPlayer} />
+      return (
+        <GameView
+          game={activeGame}
+          onBack={() => setView(view.returnTo ?? { type: 'sessions' })}
+          onSelectPlayer={openPlayer}
+          backLabel={view.returnTo?.type === 'player' ? 'Back to Player' : 'Back to Sessions'}
+        />
+      )
     }
 
     if (view.type === 'player' && activePlayer) {
-      return <PlayerView profile={activePlayer} onBack={goHome} />
+      return (
+        <PlayerView
+          profile={activePlayer}
+          onBack={goHome}
+          onOpenGame={(gameId) => setView({ type: 'game', gameId, returnTo: { type: 'player', playerName: activePlayer.player } })}
+        />
+      )
     }
 
     return (

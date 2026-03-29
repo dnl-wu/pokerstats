@@ -9,7 +9,7 @@ import { Avatar, LinkButton, PlayerNameCell } from './ui.jsx'
 
 export function LeaderboardTable({ rows, onSelectPlayer, compact = false }) {
   return (
-    <table>
+    <table className="responsive-table leaderboard-table">
       <thead>
         <tr>
           <th>Player</th>
@@ -25,18 +25,18 @@ export function LeaderboardTable({ rows, onSelectPlayer, compact = false }) {
       <tbody>
         {rows.map((row) => (
           <tr key={row.id}>
-            <td>
+            <td data-label="Player">
               <PlayerNameCell name={row.player} onSelect={onSelectPlayer} rank={row.rank} />
             </td>
-            <td>{formatDecimal(row.powerRanking)}</td>
-            <td>{row.gamesPlayed}</td>
-            <td className={playerResultClass(row.totalProfit)}>{formatSignedCurrency(row.totalProfit)}</td>
-            <td className={playerResultClass(row.bbProfit)}>{formatSignedNumber(row.bbProfit)}</td>
+            <td data-label="Power Score">{formatDecimal(row.powerRanking)}</td>
+            <td data-label="GP">{row.gamesPlayed}</td>
+            <td data-label="Net" className={playerResultClass(row.totalProfit)}>{formatSignedCurrency(row.totalProfit)}</td>
+            <td data-label="BB" className={playerResultClass(row.bbProfit)}>{formatSignedNumber(row.bbProfit)}</td>
             {!compact ? (
-              <td className={playerResultClass(row.averageProfit)}>{formatSignedCurrency(row.averageProfit)}</td>
+              <td data-label="Avg" className={playerResultClass(row.averageProfit)}>{formatSignedCurrency(row.averageProfit)}</td>
             ) : null}
-            {!compact ? <td>{row.winRate}</td> : null}
-            {!compact ? <td>{row.roi}</td> : null}
+            {!compact ? <td data-label="Win %">{row.winRate}</td> : null}
+            {!compact ? <td data-label="ROI">{row.roi}</td> : null}
           </tr>
         ))}
       </tbody>
@@ -46,7 +46,7 @@ export function LeaderboardTable({ rows, onSelectPlayer, compact = false }) {
 
 export function SessionsTable({ games, onOpenGame, onSelectPlayer, compact = false }) {
   return (
-    <table className={compact ? 'compact-recaps-table' : ''}>
+    <table className={`responsive-table sessions-table${compact ? ' compact-recaps-table' : ''}`}>
       <thead>
         <tr>
           <th>Session</th>
@@ -59,8 +59,8 @@ export function SessionsTable({ games, onOpenGame, onSelectPlayer, compact = fal
       <tbody>
         {games.map((game) => (
           <tr key={game.id}>
-            <td>{game.gameName}</td>
-            <td>
+            <td data-label="Session">{game.gameName}</td>
+            <td data-label="Winner">
               <div className="player-name-inline">
                 {game.winner ? (
                   onSelectPlayer ? (
@@ -76,9 +76,9 @@ export function SessionsTable({ games, onOpenGame, onSelectPlayer, compact = fal
                 )}
               </div>
             </td>
-            <td>{game.players.length}</td>
-            <td>{formatCurrency(game.totalBuyIn)}</td>
-            <td>
+            <td data-label="Players">{game.players.length}</td>
+            <td data-label="Total">{formatCurrency(game.totalBuyIn)}</td>
+            <td data-label="Action">
               <LinkButton onClick={() => onOpenGame(game.id)}>
                 {compact ? 'View' : 'View Session'}
               </LinkButton>
