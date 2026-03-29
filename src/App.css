@@ -761,7 +761,18 @@ tr:hover td {
   }
 
   .sessions-table td[data-label='Action'] {
-    padding-top: 12px;
+    padding-top: 8px;
+    text-align: left;
+  }
+
+  .sessions-table td[data-label='Action']::before {
+    display: none;
+  }
+
+  .sessions-table td[data-label='Action'] .link-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .compact-recaps-table,
