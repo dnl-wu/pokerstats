@@ -1,6 +1,23 @@
 import { BLIND_OVERRIDES } from './constants.js'
 import { toNumber } from './formatters.js'
 
+function getRowValue(row, ...headerCandidates) {
+  const keys = Object.keys(row)
+
+  for (const header of headerCandidates) {
+    if (header in row && row[header] !== '') {
+      return row[header]
+    }
+
+    const matchingKey = keys.find((key) => key === header || key.startsWith(`${header}_`))
+    if (matchingKey && row[matchingKey] !== '') {
+      return row[matchingKey]
+    }
+  }
+
+  return ''
+}
+
 export function normalizeSessions(rows) {
   return rows
     .filter((row) => row.Player && row['Game name'])
@@ -62,23 +79,26 @@ export function buildLeaderboard(rows) {
   const powerList = []
 
   rows.forEach((row, index) => {
-    if (row.Player) {
-      playerStats.set(row.Player, {
-        id: `${row.Player}-${index}`,
-        player: row.Player,
-        totalProfit: toNumber(row['Total Profit']),
-        gamesPlayed: toNumber(row['Games played']),
-        averageProfit: toNumber(row['Average profit']),
-        winRate: row['Win Rate'] || '0%',
-        roi: row.ROI || '0%',
-        bbProfit: toNumber(row['BB Profit']),
+    const statsPlayer = getRowValue(row, 'Player', 'Player_2')
+    const powerPlayer = getRowValue(row, 'Player_1')
+
+    if (statsPlayer) {
+      playerStats.set(statsPlayer, {
+        id: `${statsPlayer}-${index}`,
+        player: statsPlayer,
+        totalProfit: toNumber(getRowValue(row, 'Total Profit')),
+        gamesPlayed: toNumber(getRowValue(row, 'Games played')),
+        averageProfit: toNumber(getRowValue(row, 'Average profit')),
+        winRate: getRowValue(row, 'Win Rate') || '0%',
+        roi: getRowValue(row, 'ROI') || '0%',
+        bbProfit: toNumber(getRowValue(row, 'BB Profit')),
       })
     }
 
-    if (row.Player_1) {
+    if (powerPlayer) {
       powerList.push({
-        player: row.Player_1,
-        powerRanking: toNumber(row['Power Score']),
+        player: powerPlayer,
+        powerRanking: toNumber(getRowValue(row, 'Power Score')),
       })
     }
   })
