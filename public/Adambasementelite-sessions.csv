@@ -1,12 +1,12 @@
 Player,Game name,Date,Buy in,Cash out,Net profit,Big Blind,Profit(BB),Players in game,Game ranking,Expected win rate,,,,,
 Jayden,Opening Day,20-Mar,100,100,0,1,0,9,5,0.5,,,,,
 Derrick,Opening Day,20-Mar,230,204,-26,1,-26,9,7,0.25,,,,,
-Harry,Opening Day,20-Mar,200,0,-200,1,-200,9,9,0,,,,,
+Harry,Opening Day,20-Mar,200,50,-150,1,-150,9,9,0,,,,,
 Feranmi,Opening Day,20-Mar,200,220.5,20.5,1,20.5,9,2,0.875,,,,,
 Andrew,Opening Day,20-Mar,100,100,0,1,0,9,5,0.5,,,,,
 Darren,Opening Day,20-Mar,100,0,-100,1,-100,9,8,0.125,,,,Balance,62.4
 Anthony,Opening Day,20-Mar,100,118.5,18.5,1,18.5,9,3,0.75,,,,Total Money played,7304
-Daniel Wu,Opening Day,20-Mar,100,382,282,1,282,9,1,1,,,,,
+Daniel Wu,Opening Day,20-Mar,100,332,232,1,232,9,1,1,,,,,
 Adam,Opening Day,20-Mar,200,216,16,1,16,9,4,0.625,,,,,
 Jayden,Bombpot,21-Mar,100,340,240,1,240,6,3,0.6,,,,,
 Adam,Bombpot,21-Mar,500,440,-60,1,-60,6,4,0.4,,,,,
