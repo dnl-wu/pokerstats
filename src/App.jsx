@@ -44,12 +44,17 @@ function App() {
           sessionsResponse.text(),
         ])
 
+        const playerHeaderCounts = new Map()
+
         const parsedPlayers = Papa.parse(playersCsvText, {
           header: true,
           skipEmptyLines: true,
-          transformHeader: (header, index) => {
-            if (header === 'Player' && index === 17) return 'Player_1'
-            return header
+          transformHeader: (header) => {
+            const normalizedHeader = header.replace(/^\uFEFF/, '').trim()
+            const nextCount = (playerHeaderCounts.get(normalizedHeader) ?? 0) + 1
+            playerHeaderCounts.set(normalizedHeader, nextCount)
+
+            return nextCount === 1 ? normalizedHeader : `${normalizedHeader}_${nextCount - 1}`
           },
         })
 

@@ -13,6 +13,7 @@ import {
   LinkButton,
   PageHeader,
   SectionHeader,
+  SessionNameButton,
   StandingsCard,
   SummaryCards,
   PlayerNameCell,
@@ -31,7 +32,7 @@ export function HomeView({
   return (
     <div className="main-content">
       <PageHeader title="League Standings" badge="S1 W26" badgeClassName="season-badge-red" />
-      <SummaryCards topCashout={topCashout} topBbProfit={topBbProfit} />
+      <SummaryCards topCashout={topCashout} topBbProfit={topBbProfit} onSelectPlayer={onSelectPlayer} />
 
       <div className="home-grid">
         <section>
@@ -99,7 +100,10 @@ export function GameView({ game, onBack, onSelectPlayer, backLabel = 'Back to Se
       <LinkButton onClick={onBack}>{backLabel}</LinkButton>
       <PageHeader title={game.gameName} badge={game.date} />
       <div className="standings-card session-summary">
-        <div><strong>Winner:</strong> {game.winner?.player ?? '—'}</div>
+        <div>
+          <strong>Winner:</strong>{' '}
+          {game.winner ? <PlayerNameCell name={game.winner.player} onSelect={onSelectPlayer} /> : '—'}
+        </div>
         <div><strong>Top Cashout:</strong> {formatCurrency(game.topCashOut?.cashOut ?? 0)}</div>
         <div><strong>Blinds:</strong> {formatBigBlind(game.players[0]?.bigBlind)}</div>
         <div><strong>Total Buy In:</strong> {formatCurrency(game.totalBuyIn)}</div>
@@ -211,7 +215,7 @@ export function PlayerView({ profile, onBack, onOpenGame }) {
                 <tr key={session.id}>
                   <td data-label="Date">{session.date}</td>
                   <td data-label="Session">
-                    <LinkButton onClick={() => onOpenGame(session.gameId)}>{session.gameName}</LinkButton>
+                    <SessionNameButton name={session.gameName} onOpen={() => onOpenGame(session.gameId)} />
                   </td>
                   <td data-label="Place">{session.placement}</td>
                   <td data-label="Buy In">{formatCurrency(session.buyIn)}</td>

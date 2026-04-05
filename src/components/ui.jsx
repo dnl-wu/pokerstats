@@ -21,6 +21,14 @@ export function PlayerNameCell({ name, onSelect, rank }) {
   )
 }
 
+export function SessionNameButton({ name, onOpen, ariaLabel }) {
+  return (
+    <LinkButton onClick={onOpen} ariaLabel={ariaLabel}>
+      {name}
+    </LinkButton>
+  )
+}
+
 export function LinkButton({ children, onClick, ariaLabel }) {
   return (
     <button type="button" className="link-button" onClick={onClick} aria-label={ariaLabel}>
@@ -142,19 +150,33 @@ export function Header({ onHome, onOpenSessions, onOpenPlayers, currentView = 'h
   )
 }
 
-export function SummaryCards({ topCashout, topBbProfit }) {
+export function SummaryCards({ topCashout, topBbProfit, onSelectPlayer }) {
   return (
     <div className="summary-card-grid">
       <div className="summary-stat-card">
         <div className="summary-stat-label">Top Cash Out</div>
         <div className="summary-stat-value">
-          {topCashout ? `${topCashout.player} ${formatCurrency(topCashout.cashOut)}` : 'Loading'}
+          {topCashout ? (
+            <>
+              <LinkButton onClick={() => onSelectPlayer(topCashout.player)}>{topCashout.player}</LinkButton>{' '}
+              {formatCurrency(topCashout.cashOut)}
+            </>
+          ) : (
+            'Loading'
+          )}
         </div>
       </div>
       <div className="summary-stat-card">
         <div className="summary-stat-label">Top BB Profit</div>
         <div className="summary-stat-value">
-          {topBbProfit ? `${topBbProfit.player} ${formatSignedNumber(topBbProfit.bbProfit)} BB` : 'Loading'}
+          {topBbProfit ? (
+            <>
+              <LinkButton onClick={() => onSelectPlayer(topBbProfit.player)}>{topBbProfit.player}</LinkButton>{' '}
+              {formatSignedNumber(topBbProfit.bbProfit)} BB
+            </>
+          ) : (
+            'Loading'
+          )}
         </div>
       </div>
     </div>

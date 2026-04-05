@@ -5,7 +5,7 @@ import {
   formatSignedNumber,
   playerResultClass,
 } from '../lib/formatters.js'
-import { Avatar, LinkButton, PlayerNameCell } from './ui.jsx'
+import { Avatar, LinkButton, PlayerNameCell, SessionNameButton } from './ui.jsx'
 
 export function LeaderboardTable({ rows, onSelectPlayer, compact = false }) {
   return (
@@ -59,7 +59,13 @@ export function SessionsTable({ games, onOpenGame, onSelectPlayer, compact = fal
       <tbody>
         {games.map((game) => (
           <tr key={game.id}>
-            <td data-label="Session">{game.gameName}</td>
+            <td data-label="Session">
+              <SessionNameButton
+                name={game.gameName}
+                onOpen={() => onOpenGame(game.id)}
+                ariaLabel={`Open ${game.gameName}`}
+              />
+            </td>
             <td data-label="Winner">
               <div className="player-name-inline">
                 {game.winner ? (
