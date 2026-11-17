@@ -835,7 +835,7 @@ tr:hover td {
 
 .compact-recaps-table th:nth-child(2),
 .compact-recaps-table td:nth-child(2) {
-  width: 186px;
+  width: 200px;
 }
 
 .compact-recaps-table th:nth-child(3),
@@ -845,7 +845,7 @@ tr:hover td {
 
 .compact-recaps-table th:nth-child(4),
 .compact-recaps-table td:nth-child(4) {
-  width: 80px;
+  width: 72px;
 }
 
 .compact-recaps-table th:nth-child(5),
@@ -879,14 +879,16 @@ tr:hover td {
 .compact-recaps-table td:nth-child(2) .player-name-inline,
 .compact-recaps-table td:nth-child(2) .player-name-button {
   display: inline-flex;
+  flex-wrap: nowrap;
   align-items: center;
   max-width: 100%;
 }
 
 .compact-recaps-table td:nth-child(2) .player-name-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.2;
+  text-align: left;
+  white-space: normal;
+  overflow-wrap: normal;
 }
 
 .compact-recaps-table td:nth-child(2) .profile-avatar,
@@ -1506,6 +1508,11 @@ tr:hover td {
   .compact-recaps-table td,
   .compact-recaps-table th {
     table-layout: auto;
+  }
+
+  .compact-recaps-table th:nth-child(n),
+  .compact-recaps-table td:nth-child(n) {
+    width: auto;
   }
 
   .player-name-button,
