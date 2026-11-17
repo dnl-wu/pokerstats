@@ -17,87 +17,33 @@ import {
   normalizeSessions,
 } from './lib/data'
 
-const INTRO_LABEL = 'Season 1 Winner'
 const INTRO_BRAND = 'Adams Basement'
-const INTRO_NEXT_SEASON = 'Season 2'
-const INTRO_WINNER = 'Aiden Jalili'
-const SCRAMBLE_CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&'
-
-function getScrambledWinner(progress) {
-  const lockedCharacters = Math.floor(progress * INTRO_WINNER.length)
-
-  return [...INTRO_WINNER]
-    .map((character, index) => {
-      if (character === ' ') {
-        return character
-      }
-
-      if (index < lockedCharacters) {
-        return character
-      }
-
-      const randomIndex = Math.floor(Math.random() * SCRAMBLE_CHARACTERS.length)
-      return SCRAMBLE_CHARACTERS[randomIndex]
-    })
-    .join('')
-}
+const INTRO_SEASON = 'Season 3'
+const INTRO_PICK = 'Pick a Player'
+const INTRO_MATCHUP_IMAGE = '/season3-matchup.png'
+const INTRO_ODDS = [
+  { side: 'left', odds: '-120' },
+  { side: 'right', odds: '+120' },
+]
 
 function LandingIntro({ onComplete }) {
-  const [phase, setPhase] = useState('title')
-  const [winnerText, setWinnerText] = useState('')
+  const [phase, setPhase] = useState('season')
   const closeTimeoutRef = useRef()
 
   useEffect(() => {
-    const timeouts = []
-    let scrambleInterval
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const timeouts = prefersReducedMotion
+      ? [window.setTimeout(() => setPhase('pick'), 1200)]
+      : [
+          window.setTimeout(() => setPhase('season-out'), 2000),
+          window.setTimeout(() => setPhase('pick'), 2420),
+        ]
 
     document.body.classList.add('intro-lock')
-
-    function queue(callback, delay) {
-      const timeoutId = window.setTimeout(callback, delay)
-      timeouts.push(timeoutId)
-    }
-
-    function showSeasonGate(delay) {
-      queue(() => setPhase('season'), delay)
-    }
-
-    if (prefersReducedMotion) {
-      queue(() => {
-        setWinnerText(INTRO_WINNER)
-        setPhase('settled')
-      }, 0)
-      showSeasonGate(900)
-    } else {
-      queue(() => {
-        setPhase('scrambling')
-        const startedAt = window.performance.now()
-        const duration = 1300
-
-        scrambleInterval = window.setInterval(() => {
-          const elapsed = window.performance.now() - startedAt
-          const progress = Math.min(elapsed / duration, 1)
-
-          setWinnerText(getScrambledWinner(progress))
-
-          if (progress === 1) {
-            window.clearInterval(scrambleInterval)
-            setWinnerText(INTRO_WINNER)
-            setPhase('settled')
-            showSeasonGate(850)
-          }
-        }, 42)
-      }, 1000)
-    }
 
     return () => {
       document.body.classList.remove('intro-lock')
       timeouts.forEach((timeoutId) => window.clearTimeout(timeoutId))
-
-      if (scrambleInterval) {
-        window.clearInterval(scrambleInterval)
-      }
 
       if (closeTimeoutRef.current) {
         window.clearTimeout(closeTimeoutRef.current)
@@ -106,7 +52,7 @@ function LandingIntro({ onComplete }) {
   }, [])
 
   function handleGo() {
-    if (phase === 'closing') {
+    if (phase !== 'pick') {
       return
     }
 
@@ -114,30 +60,47 @@ function LandingIntro({ onComplete }) {
     closeTimeoutRef.current = window.setTimeout(onComplete, 760)
   }
 
-  const isSeasonGate = phase === 'season' || phase === 'closing'
+  const isPickScene = phase === 'pick' || phase === 'closing'
 
   return (
     <div
       className={`intro-overlay is-${phase}`}
       role="dialog"
       aria-modal="true"
-      aria-label={isSeasonGate ? INTRO_NEXT_SEASON : `${INTRO_LABEL}: ${INTRO_WINNER}`}
+      aria-label={isPickScene ? INTRO_PICK : INTRO_SEASON}
     >
-      <div className="intro-frame">
-        <div className="intro-kicker">{INTRO_BRAND}</div>
-        <div key={isSeasonGate ? 'season' : 'winner'} className="intro-title">
-          {isSeasonGate ? INTRO_NEXT_SEASON : INTRO_LABEL}
+      <div className="intro-grain" aria-hidden="true" />
+      <div className="intro-glitch-bars" aria-hidden="true" />
+      {isPickScene ? <div className="intro-flash" aria-hidden="true" /> : null}
+      {isPickScene ? (
+        <div key="pick" className="intro-frame intro-scene-pick">
+          <div className="intro-kicker">{INTRO_SEASON}</div>
+          <div className="intro-title" data-text={INTRO_PICK}>
+            {INTRO_PICK}
+          </div>
+          <div className="intro-matchup">
+            <img className="intro-matchup-image" src={INTRO_MATCHUP_IMAGE} alt="Two players, one holding a cap" />
+            {INTRO_ODDS.map(({ side, odds }) => (
+              <div key={side} className={`intro-odds intro-odds-${side}`}>
+                {odds}
+              </div>
+            ))}
+          </div>
+          {phase === 'pick' ? (
+            <button type="button" className="intro-go-button" onClick={handleGo} autoFocus>
+              Go
+            </button>
+          ) : null}
         </div>
-        <div className="intro-winner" aria-hidden={phase === 'title' || isSeasonGate}>
-          {winnerText}
+      ) : (
+        <div key="season" className="intro-frame intro-scene-season">
+          <div className="intro-kicker">{INTRO_BRAND}</div>
+          <div className="intro-title" data-text={INTRO_SEASON}>
+            {INTRO_SEASON}
+          </div>
+          <div className="intro-rule" />
         </div>
-        {phase === 'season' ? (
-          <button type="button" className="intro-go-button" onClick={handleGo} autoFocus>
-            Go
-          </button>
-        ) : null}
-        <div className="intro-rule" />
-      </div>
+      )}
     </div>
   )
 }

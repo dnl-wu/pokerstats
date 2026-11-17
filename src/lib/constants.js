@@ -1,6 +1,7 @@
 export const playersCsvPath = '/Adambasementelite-players.csv'
 export const sessionsCsvPath = '/Adambasementelite-sessions.csv'
-export const seasonLabel = 'S2 Summer 2026'
+export const PLAYER_MARKETS_URL = 'https://home-game-exchange-azure.vercel.app/'
+export const seasonLabel = 'S3 (Starting soon)'
 export const HOME_LEADERBOARD_COUNT = 8
 export const HOME_SESSIONS_COUNT = 8
 export const DISPLAY_SMALL_BLIND = 0.25

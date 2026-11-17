@@ -1,4 +1,5 @@
 import {
+  PLAYER_MARKETS_URL,
   PLAYER_PHOTOS,
   isS1ChampionPlayer,
   playerRankBadgeTone,
@@ -149,7 +150,7 @@ export function Header({ onHome, onOpenSessions, onOpenPlayers, currentView = 'h
       <div className="announcement-bar" aria-label="League announcement">
         <div className="announcement-inner">
           <div className="announcement-text">
-            <span>Adam&apos;s Basement S2 Playoffs: Open for Qualification</span>
+            <span>Adam&apos;s Basement S3 (Starting soon)</span>
           </div>
         </div>
       </div>
@@ -176,6 +177,15 @@ export function Header({ onHome, onOpenSessions, onOpenPlayers, currentView = 'h
           >
             Stat Leaders
           </button>
+          <a
+            className="sub-nav-link sub-nav-link-external"
+            href={PLAYER_MARKETS_URL}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Player Markets
+            <span className="sub-nav-new-tag">New</span>
+          </a>
         </div>
       </div>
     </>
