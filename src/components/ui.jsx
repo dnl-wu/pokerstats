@@ -150,7 +150,10 @@ export function Header({ onHome, onOpenSessions, onOpenPlayers, currentView = 'h
       <div className="announcement-bar" aria-label="League announcement">
         <div className="announcement-inner">
           <div className="announcement-text">
-            <span>Adam&apos;s Basement S3 (Starting soon)</span>
+            <a className="announcement-link" href={PLAYER_MARKETS_URL} target="_blank" rel="noreferrer">
+              Player Markets
+              <span className="new-tag">New</span>
+            </a>
           </div>
         </div>
       </div>
@@ -184,7 +187,7 @@ export function Header({ onHome, onOpenSessions, onOpenPlayers, currentView = 'h
             rel="noreferrer"
           >
             Player Markets
-            <span className="sub-nav-new-tag">New</span>
+            <span className="new-tag">New</span>
           </a>
         </div>
       </div>

@@ -359,11 +359,22 @@ button {
 }
 
 .announcement-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   color: #ffffff;
-  font-size: 12px;
-  font-weight: 700;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.announcement-link:hover,
+.announcement-link:focus-visible {
   text-decoration: underline;
-  text-underline-offset: 2px;
+}
+
+.announcement-link .new-tag {
+  background: #ffffff;
+  color: var(--negative);
 }
 
 header {
@@ -473,7 +484,7 @@ header {
   color: var(--text-main);
 }
 
-.sub-nav-new-tag {
+.new-tag {
   padding: 3px 7px;
   border-radius: 999px;
   background: var(--negative);
