@@ -358,23 +358,23 @@ button {
   text-transform: uppercase;
 }
 
-.announcement-link {
+.announcement-feature {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+}
+
+.announcement-link {
   color: #ffffff;
-  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .announcement-link:hover,
 .announcement-link:focus-visible {
-  text-decoration: underline;
-}
-
-.announcement-link .new-tag {
-  background: #ffffff;
-  color: var(--negative);
+  text-decoration-thickness: 2px;
 }
 
 header {
@@ -470,25 +470,11 @@ header {
   border-bottom: 2px solid transparent;
 }
 
-.sub-nav-link-external {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  white-space: nowrap;
-  text-decoration: none;
-}
-
-.sub-nav-link-external:hover,
-.sub-nav-link-external:focus-visible {
-  color: var(--text-main);
-}
-
 .new-tag {
   padding: 3px 7px;
   border-radius: 999px;
-  background: var(--negative);
-  color: #ffffff;
+  background: #ffffff;
+  color: var(--negative);
   font-size: 10px;
   font-weight: 900;
   line-height: 1;

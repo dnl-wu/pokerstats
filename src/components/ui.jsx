@@ -150,9 +150,12 @@ export function Header({ onHome, onOpenSessions, onOpenPlayers, currentView = 'h
       <div className="announcement-bar" aria-label="League announcement">
         <div className="announcement-inner">
           <div className="announcement-text">
-            <a className="announcement-link" href={PLAYER_MARKETS_URL} target="_blank" rel="noreferrer">
+            <span className="announcement-feature">
               Player Markets
               <span className="new-tag">New</span>
+            </span>
+            <a className="announcement-link" href={PLAYER_MARKETS_URL} target="_blank" rel="noreferrer">
+              Try now
             </a>
           </div>
         </div>
@@ -180,15 +183,6 @@ export function Header({ onHome, onOpenSessions, onOpenPlayers, currentView = 'h
           >
             Stat Leaders
           </button>
-          <a
-            className="sub-nav-link sub-nav-link-external"
-            href={PLAYER_MARKETS_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Player Markets
-            <span className="new-tag">New</span>
-          </a>
         </div>
       </div>
     </>
